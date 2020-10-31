@@ -1,5 +1,9 @@
 
 import timeit
+
+"""
+Top down approach by using the recursion:
+"""
 def fibonacci(input):
     if input ==0: 
         return 1 
@@ -24,4 +28,20 @@ def fibonacci_memo(input, cache=None):
     print(cache) # this cache grows at each level and the recursive computations are avoided if it is already in cache
     return result
 
+
+
+"""
+Bottom up by using the tabulation method 
+"""
+
+def fibonacci_tablulation(n):
+  dp = [0, 1]
+  for i in range(2, n + 1):
+    dp.append(dp[i - 1] + dp[i - 2])
+  return dp[n]
+    
+
+
+
 print(fibonacci_memo(10))
+print(fibonacci_tablulation(10))
