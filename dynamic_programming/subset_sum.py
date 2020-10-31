@@ -1,17 +1,42 @@
 """
-subset sum problem using dynamic programming.
-Given a set of positive numbers, 
-find if we can partition it into two subsets such that the sum of elements in both the subsets is equal
-Input: {1, 2, 3, 4}
+Input: {1, 2, 3, 7}, S=6
 Output: True
-Explanation: The given set can be partitioned into two subsets with equal sum: {1, 4} & {2, 3}
+The given set has a subset whose sum is '6': {1, 2, 3}
 
-Input: {1, 1, 3, 4, 7}
+Input: {1, 2, 7, 1, 5}, S=10
 Output: True
-Explanation: The given set can be partitioned into two subsets with equal sum: {1, 3, 4} & {1, 7}
+The given set has a subset whose sum is '10': {1, 2, 7}
 
-Input: {2, 3, 4, 6}
+Input: {1, 3, 4, 8}, S=6
 Output: False
-Explanation: The given set cannot be partitioned into two subsets with equal sum.
+The given set does not have any subset whose sum is equal to '6'.
+
 """
 
+"""
+Bottom up dynamic programming approach
+"""
+
+def solve_subset_sum(num=[],sum = None):
+     
+    n = len(num)
+    dp = [[False for x in range(0,sum+1)] for y in range (0,n)]
+
+    for x in range(0,n):
+        dp[x][0] = True 
+    
+    for y in range(0,sum+1):
+        dp[0][y] = True if y ==num[0] else False 
+
+    
+    for i in range(1,n):
+        for s in range(1,sum+1):
+            if dp[i][s-1]:
+                dp[i][s] = dp[i-1][s]
+            elif s >=num[i]:
+                dp[i][s] = dp[i-1][s-num[i]]
+    return dp[n-1][sum]
+
+print(solve_subset_sum(num=[1,2,3,4,5], sum =10))
+print(solve_subset_sum(num=[1,2,3,4,5], sum =19))
+            
