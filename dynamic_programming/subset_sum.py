@@ -21,14 +21,11 @@ def solve_subset_sum(num=[],sum = None):
      
     n = len(num)
     dp = [[False for x in range(0,sum+1)] for y in range (0,n)]
-
     for x in range(0,n):
-        dp[x][0] = True 
-    
+        dp[x][0] = True     
     for y in range(0,sum+1):
         dp[0][y] = True if y ==num[0] else False 
 
-    
     for i in range(1,n):
         for s in range(1,sum+1):
             if dp[i][s-1]:
